@@ -4,8 +4,15 @@ import string
 from flask import (
     Flask,
     request,
-    jsonify
+    jsonify,
+    render_template
 )
+
+from wtforms import (
+    Form,
+    StringField
+)
+
 
 # the object is the 'instance' of the app, created using `__name__`, which is
 # the name of the module we're executing in : 'app'
@@ -54,6 +61,25 @@ def gibberish():
         'gibberish': gibberish
     }
     return jsonify(result)
+
+
+class InputForm(Form):
+    input1 = StringField('input1')
+    input2 = StringField('input2')
+    input3 = StringField('input3')
+
+
+@app.route('/enter_data', methods=['GET', 'POST'])
+def enter_data():
+    form = InputForm(request.form)
+    if request.method == 'POST':
+        return render_template(
+            'basic.html',
+            text='You entered : {}, {}, and {}'.format(
+                form.input1, form.input2, form.input3)
+        )
+        return
+    return render_template('form.html', form=form)
 
 
 if __name__ == "__main__":
