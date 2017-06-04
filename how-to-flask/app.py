@@ -24,6 +24,14 @@ def index():
     return "Hello World!"
 
 
+@app.route('/basic', methods=['GET', 'POST'])
+def basic():
+    return render_template(
+        'basic.html',
+        text='Welcome to basic'
+    )
+
+
 @app.route("/gibberish", methods=["POST"])
 def gibberish():
     """Returns random strings and nonsense.
@@ -67,6 +75,17 @@ class InputForm(Form):
     input1 = StringField('input1')
     input2 = StringField('input2')
     input3 = StringField('input3')
+
+
+# Exercies
+@app.route('/get_date', methods=['GET'])
+def get_date():
+    """Return a simple html page displaying in large font, the current date.
+
+    Extra: include the timezone or change the timezone to a preferred one,
+    and display this.
+    """
+    pass
 
 
 @app.route('/enter_data', methods=['GET', 'POST'])
