@@ -72,14 +72,15 @@ class InputForm(Form):
 @app.route('/enter_data', methods=['GET', 'POST'])
 def enter_data():
     form = InputForm(request.form)
+
     if request.method == 'POST':
         return render_template(
             'basic.html',
             text='You entered : {}, {}, and {}'.format(
                 form.input1, form.input2, form.input3)
         )
-        return
-    return render_template('form.html', form=form)
+    elif request.method == 'GET':
+        return render_template('form.html', form=form)
 
 
 if __name__ == "__main__":
